@@ -1,0 +1,36 @@
+<template>
+    <template if:true={question}>
+        <template if:true={isCheckbox}>
+            <template if:true={question.options}>
+                <template for:each={question.options} for:item="option">
+                    <lightning-input type="checkbox" key={option} label={option} value={option}></lightning-input>
+                </template>
+            </template>
+            <template if:false={question.options}>
+                <lightning-input type="radio"  label="Yes" value="Yes"></lightning-input>
+                <lightning-input type="radio"  label="No" value="No"></lightning-input>
+            </template>
+        </template>
+        </template>
+        <template if:true={isRadio}>
+            <template if:true={question.options}>
+                <template for:each={question.options} for:item="option">
+                    <lightning-input type="radio" key={option} label={option} value={option}></lightning-input>
+                </template>
+            </template>
+            <template if:false={question.options}>
+                <lightning-input type="radio" label="Yes" value="Yes"></lightning-input>
+                <lightning-input type="radio"  label="No" value="No"></lightning-input>
+            </template>
+        </template>
+        <template if:true={isText}>
+            <lightning-input type="text" placeholder="Enter answer" label={question.question}></lightning-input>
+        </template>
+        <template if:true={isDate}>
+            <lightning-input type="date" label={question.question}></lightning-input>
+        </template>
+        <template if:true={isCode}>
+            <lightning-input-rich-text formats="code, code-block" label ={question.question} value={question.code}></lightning-input-rich-text>
+        </template>
+    </template>
+</template>
