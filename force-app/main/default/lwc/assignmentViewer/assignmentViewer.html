@@ -1,0 +1,10 @@
+<template>
+    <template for:each={content} for:item="question">
+        <div key={question.question} style="padding: 10px">
+           <!-- <lightning-input type="checkbox" style="font-weight: bold" value={question.number} label = {question.question} onchange={handleCheckboxSelection}></lightning-input> -->
+             <div style="padding-left: 30px">
+                <c-assignment-processor question={question}></c-assignment-processor>
+            </div>
+        </div>
+    </template>
+</template>

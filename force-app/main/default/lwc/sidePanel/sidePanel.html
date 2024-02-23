@@ -1,0 +1,160 @@
+<!--
+  ~ Copyright 2023 salesforce.com, inc.
+  ~ All Rights Reserved
+  ~ Company Confidential
+  -->
+
+<template>
+  <section class={computedStyles} aria-hidden={ariaHidden} aria-label="compC">
+    <div
+      class="slds-grid slds-grid_vertical slds-template__container slds-is-absolute"
+    >
+      <div
+        class="sidebarHeader slds-panel__header slds-panel__header_custom slds-shrink-none slds-grow-none"
+      >
+        <h2
+          id="sidepanel-header"
+          title="Header"
+          class="slds-panel__header-title slds-text-heading_small slds-truncate"
+          style="padding-top: 12px"
+        >
+          Lecture Actions
+        </h2>
+        <div class="slds-grid slds-shrink-none slds-var-p-around_medium">
+          <!-- <lightning-button
+            label="Generate Transcript"
+            onclick={createSummary}
+          ></lightning-button> -->
+          <lightning-button
+            label="Get Summary"
+            onclick={createSummary}
+          ></lightning-button>
+          <lightning-button
+            class="slds-col_bump-left"
+            label="Get Assignments"
+            onclick={createAssignments}
+          ></lightning-button>
+        </div>
+
+        <lightning-button-icon
+          onclick={onSizeToggle}
+          icon-name="utility:close"
+          variant="bare"
+          size="medium"
+          alternative-text="Close"
+          class="slds-panel__close"
+        >
+        </lightning-button-icon>
+      </div>
+
+      <!-- content -->
+      <div class="slds-panel__body">
+        <lightning-tabset>
+          <lightning-tab label="Lecture Transcript">
+            <div class="slds-text-font_monospace">{transcript}</div>
+          </lightning-tab>
+          <lightning-tab label="Summary" title="2nd tab extended title">
+            <div class="slds-text-font_monospace">{summary}</div>
+          </lightning-tab>
+          <lightning-tab label="Assignment">
+            <template if:true={isAssignmentGenerated}>
+              <lightning-card
+                style="height: 1000px"
+                class="my-card"
+                title=" Select your questions and generate PDF "
+              >
+                <lightning-button
+                  label="Generate Assignment"
+                  onclick={handleAssignmentGeneration}
+                  slot="actions"
+                ></lightning-button>
+                <template if:true={isLoaded}>
+                  <template for:each={assignmentQuestions} for:item="question">
+                    <div key={question.question} style="padding: 10px">
+                      <lightning-input
+                        type="checkbox"
+                        style="font-weight: bold"
+                        value={question.number}
+                        label={question.question}
+                        onchange={handleCheckboxSelection}
+                      ></lightning-input>
+                      <div style="padding-left: 30px">
+                        <c-assignment-processor
+                          question={question}
+                        ></c-assignment-processor>
+                      </div>
+                    </div>
+                  </template>
+                </template>
+              </lightning-card>
+            </template>
+          </lightning-tab>
+          <template if:false={isLoaded}>
+            <lightning-spinner
+              class="spins"
+              alternative-text="Loading"
+              variant="brand"
+              size="large"
+            ></lightning-spinner>
+          </template>
+        </lightning-tabset>
+      </div>
+    </div>
+    <template if:true={showNotification}>
+      <div class="demo-only demo-only_viewport" style="height: 4.5rem">
+        <div class="slds-notification-container">
+          <div
+            aria-live="assertive"
+            aria-atomic="true"
+            class="slds-assistive-text"
+          >
+            task notification: Call: Jane Johnson
+          </div>
+          <section
+            class="slds-notification"
+            role="dialog"
+            aria-labelledby="noti-86"
+            aria-describedby="dialog-body-id-85"
+          >
+            <div class="slds-notification__body" id="dialog-body-id-85">
+              <a class="slds-notification__target slds-media" href="#">
+                <span
+                  class="slds-icon_container slds-icon-standard-task slds-media__figure"
+                  title="task"
+                >
+                  <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                    <use
+                      xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#task"
+                    ></use>
+                  </svg>
+                  <span class="slds-assistive-text"
+                    >Description of icon when needed</span
+                  >
+                </span>
+                <div class="slds-media__body">
+                  <h2
+                    class="slds-text-heading_small slds-m-bottom_xx-small"
+                    id="noti-86"
+                  >
+                    <span class="slds-assistive-text">task notification:</span
+                    >Assignment Generated
+                  </h2>
+                  <p>Ready to send!!</p>
+                </div>
+              </a>
+              <lightning-button-icon
+                onclick={onNotifyClose}
+                icon-name="utility:close"
+                variant="bare"
+                size="medium"
+                alternative-text="Close"
+                class="slds-panel__close"
+              >
+              </lightning-button-icon>
+            </div>
+          </section>
+        </div>
+      </div>
+    </template>
+  </section>
+</template>

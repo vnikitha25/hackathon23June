@@ -1,0 +1,10 @@
+/*
+ * Copyright 2023 salesforce.com, inc.
+ * All Rights Reserved
+ * Company Confidential
+ */
+
+
+.custom-textarea {
+    --sds-c-textarea-sizing-min-height:100px;
+}

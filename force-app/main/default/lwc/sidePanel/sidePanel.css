@@ -1,0 +1,89 @@
+/* wrapper */
+
+.wrapper {
+    background-color: var(--lwc-colorBackgroundAlt);
+    border: 1px solid var(--lwc-colorBorder);
+    width: 600px;
+    height: 1000px;
+    word-break: break-word;
+    z-index: 100; /* below global header and global nav */
+}
+.wrapper:dir(ltr) {
+    left: 100%;
+    transition:  visibility .3s, left .3s, width .3s;
+}
+.wrapper:dir(rtl) {
+    right: 100%;
+    transition:  visibility .3s, right .3s, width .3s;
+}
+
+.wrapper.opened:not(pinned) {
+    box-shadow: 0 0 10px gray;
+}
+.wrapper.opened.pinned {
+    border-left-color: var(--lwc-brandPrimaryActive);
+    border-radius: 0;
+}
+
+.wrapper.opened:dir(ltr) {
+    left: calc(100% - var(--lwc-sizeLarge));
+}
+.wrapper.opened:dir(rtl) {
+    right: calc(100% - var(--lwc-sizeLarge));
+}
+
+.wrapper.medium {
+    width: 600px;
+}
+.wrapper.opened.medium:dir(ltr) {
+    left: calc(100% - 600px);
+}
+.wrapper.opened.medium:dir(rtl) {
+    right: calc(100% - 600px);
+}
+
+/* header */
+
+.sidebarHeader {
+    /* keep buttons top-aligned if header text wraps */
+    align-items: flex-start;
+}
+
+/* resize handle */
+
+.resizeHandle {
+    position: absolute;
+    height: 50%;
+    top: 25%;
+    width: var(--lwc-spacingLarge);
+}
+
+.resizeHandle lightning-button-icon {
+    position: relative;
+    /*z-index: calc(var(--lwc-zIndexSpinner) + 1);  should not be covered by spinner */
+    /*margin-left: calc(var(--lwc-spacingNone) - var(--lwc-spacingXSmall));*/
+}
+
+/* contentContainer */
+
+.contentContainer {
+    /* W-7740852: display: flex needed for 100% height iframe in Safari. */
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    overflow: scroll;
+}
+
+.videoStyle{
+    align-items: center;
+
+}
+
+.spins::after {
+    position: absolute;
+    content: 'Sit back and relax, we will notify you once done....';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}

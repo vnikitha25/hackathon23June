@@ -1,15 +1,22 @@
 <template>
     <lightning-card style="height:1000px" title="App1">
-        <lightning-button label="Send Message" onclick={handleClick} slot="actions"></lightning-button>
-        <!-- <lightning-input>
-            {resultMessage}
-        </lightning-input> -->
-        <!-- <lightning-textarea name="input1" readonly value={resultMessage} label="Message Received" ></lightning-textarea> -->
+        <lightning-button label="Get Summary" onclick={createSummary} slot="actions"></lightning-button>
+        <lightning-button label="Get Assignments" onclick={createAssignments} slot="actions"></lightning-button>
         <template if:true={isLoaded}>
+            <template if:true={assignmentQuestions}>
+                <lightning-card class="my-card" title=" Select your questions and generate PDF "> <br></lightning-card>
+            </template>
             <template for:each={assignmentQuestions} for:item="question">
                 <div key={question.question} style="padding: 10px">
-                    <h2>{question.question}</h2>
-                    <c-assignment-processor question={question}></c-assignment-processor>
+                    <lightning-input type="checkbox" style="font-weight: bold" value={question.number} label = {question.question} onchange={handleCheckboxSelection}></lightning-input>
+                    <div style="padding-left: 30px">
+                        <c-assignment-processor question={question}></c-assignment-processor>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isAssignmentGenerated}>
+                <div class="footer slds-p-around_small" slot="footer">
+                <lightning-button label="Generate PDF" title="Generate PDF" onclick={handlePdfGeneration}></lightning-button>
                 </div>
             </template>
         </template>

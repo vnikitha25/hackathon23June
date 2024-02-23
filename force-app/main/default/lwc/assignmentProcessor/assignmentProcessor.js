@@ -12,10 +12,6 @@ export default class AssignmentProcessor extends LightningElement {
     get isText() {
         return this.question.type === 'text';
     }
-    get isDate() {
-        return this.question.type === 'date';
-    }
-
     get isCode() {
         return this.question.type === 'code';
     }

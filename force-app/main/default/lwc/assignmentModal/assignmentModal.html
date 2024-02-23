@@ -1,0 +1,23 @@
+<template>
+    <lightning-modal-body> 
+        <template for:each={content} for:item="question">
+            <div key={question.question} style="padding: 10px">
+                <lightning-input type="checkbox" style="font-weight: bold" value={question.number} label = {question.question} onchange={handleCheckboxSelection}></lightning-input>
+                <div style="padding-left: 30px">
+                    <c-assignment-processor question={question}></c-assignment-processor>
+                </div>
+            </div>
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Generate Assignment" onclick={generateAssignment}></lightning-button>
+    </lightning-modal-footer>
+    <template if:true={showLoading}>
+        <lightning-spinner
+          class="spins"
+          alternative-text="Loading"
+          variant="brand"
+          size="large"
+        ></lightning-spinner>
+      </template>
+</template>

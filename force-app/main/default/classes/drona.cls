@@ -1,12 +1,23 @@
 public with sharing class drona {
   public drona() {
   }
-  public static string getAssignments() {
+
+  @AuraEnabled
+  public static string getTranscript(String lecture) {
     try {
       Http http = new Http();
       HttpRequest request = new HttpRequest();
-      request.setEndpoint('https://drona-101-881df3dd5c1d.herokuapp.com/');
-      request.setMethod('GET');
+      request.setEndpoint(
+        'https://drona-101-881df3dd5c1d.herokuapp.com/getTranscript'
+      );
+      request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+      JSONGenerator gen = JSON.createGenerator(true);
+      gen.writeStartObject();
+      gen.writeStringField('lecture', lecture);
+      gen.writeEndObject();
+      String reqBody = gen.getAsString();
+      request.setBody(reqBody);
+      request.setMethod('POST');
       request.setTimeout(120000);
       HttpResponse response = http.send(request);
       return response.getBody();
@@ -14,14 +25,48 @@ public with sharing class drona {
       throw new AuraHandledException(e.getMessage());
     }
   }
-  @AuraEnabled(cacheable=true)
-  public static string getAssignments1() {
+
+  @AuraEnabled
+  public static string getSummary(String transcript) {
     try {
       Http http = new Http();
       HttpRequest request = new HttpRequest();
-      request.setEndpoint('https://drona-101-881df3dd5c1d.herokuapp.com/');
-      request.setMethod('GET');
-      request.setTimeout(200000);
+      request.setEndpoint(
+        'https://drona-101-881df3dd5c1d.herokuapp.com/getSummary'
+      );
+      request.setMethod('POST');
+      request.setTimeout(120000);
+      request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+      JSONGenerator gen = JSON.createGenerator(true);
+      gen.writeStartObject();
+      gen.writeStringField('transcript', transcript);
+      gen.writeEndObject();
+      String reqBody = gen.getAsString();
+      request.setBody(reqBody);
+      HttpResponse response = http.send(request);
+      return response.getBody();
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static string getAssignment(String transcript) {
+    try {
+      Http http = new Http();
+      HttpRequest request = new HttpRequest();
+      request.setEndpoint(
+        'https://drona-101-881df3dd5c1d.herokuapp.com/getAssignment'
+      );
+      request.setMethod('POST');
+      request.setTimeout(120000);
+      request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+      JSONGenerator gen = JSON.createGenerator(true);
+      gen.writeStartObject();
+      gen.writeStringField('transcript', transcript);
+      gen.writeEndObject();
+      String reqBody = gen.getAsString();
+      request.setBody(reqBody);
       HttpResponse response = http.send(request);
       return response.getBody();
     } catch (Exception e) {
