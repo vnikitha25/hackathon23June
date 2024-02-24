@@ -8,7 +8,7 @@ public with sharing class drona {
       Http http = new Http();
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
-        'https://drona-101-881df3dd5c1d.herokuapp.com/getTranscript'
+        'https://drona101-9a321867e339.herokuapp.com/getTranscript'
       );
       request.setHeader('Content-Type', 'application/json;charset=UTF-8');
       JSONGenerator gen = JSON.createGenerator(true);
@@ -32,7 +32,7 @@ public with sharing class drona {
       Http http = new Http();
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
-        'https://drona-101-881df3dd5c1d.herokuapp.com/getSummary'
+        'https://drona101-9a321867e339.herokuapp.com/getSummary'
       );
       request.setMethod('POST');
       request.setTimeout(120000);
@@ -56,7 +56,7 @@ public with sharing class drona {
       Http http = new Http();
       HttpRequest request = new HttpRequest();
       request.setEndpoint(
-        'https://drona-101-881df3dd5c1d.herokuapp.com/getAssignment'
+        'https://drona101-9a321867e339.herokuapp.com/getAssignment'
       );
       request.setMethod('POST');
       request.setTimeout(120000);
