@@ -1,0 +1,84 @@
+<template>
+    <div>
+        <header class="catalog-header">
+            <img src={bannerUrl} alt="Course Catalog Banner" class="catalog-banner" />
+            <h1 class="catalog-title">Explore Our Courses</h1>
+        </header>
+
+        <lightning-card>
+            <lightning-layout multiple-rows="true">
+                <template for:each={courses} for:item="course">
+                    <lightning-layout-item key={course.id} size="12" small-size="6" medium-size="4" large-size="3">
+                        <div class="course-card" onclick={handleCardClick} data-course-id={course.id}>
+                            <div class="course-title">{course.title}</div>
+                            <div class="course-description">{course.description}</div>
+                            <div class="course-details">
+                                <div>Duration: {course.duration}</div>
+                                <div>Level: {course.level}</div>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </lightning-card>
+    </div>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <template>
+    <lightning-card >
+        <div class="row">
+            <div class="column">
+                <div class="course-card">
+                    <div class="course-title">Introduction to Programming</div>
+                    <div class="course-description">Learn the basics of programming using popular languages like Python and Java.</div>
+                    <div class="course-details">
+                        <div>Duration: 8 weeks</div>
+                        <div>Level: Beginner</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="course-card">
+                    <div class="course-title">Web Development Bootcamp</div>
+                    <div class="course-description">Master the essentials of web development, including HTML, CSS, and JavaScript.</div>
+                    <div class="course-details">
+                        <div>Duration: 12 weeks</div>
+                        <div>Level: Intermediate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="course-card">
+                    <div class="course-title">Web Development Bootcamp</div>
+                    <div class="course-description">Master the essentials of web development, including HTML, CSS, and JavaScript.</div>
+                    <div class="course-details">
+                        <div>Duration: 12 weeks</div>
+                        <div>Level: Intermediate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="course-card">
+                    <div class="course-title">Web Development Bootcamp</div>
+                    <div class="course-description">Master the essentials of web development, including HTML, CSS, and JavaScript.</div>
+                    <div class="course-details">
+                        <div>Duration: 12 weeks</div>
+                        <div>Level: Intermediate</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    
+    </lightning-card>
+
+  </template> -->
